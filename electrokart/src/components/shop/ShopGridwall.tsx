@@ -8,7 +8,10 @@ const ShopGridwall: React.FC = () => {
     const fetchProducts = async () => {
         const response = await fetch('http://localhost:5000/api/fetchProducts', {
             method: 'GET',
-            headers: { 'Content-Type': 'application/json' }
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${sessionStorage.getItem('token')}`
+            }
         });
         return response
     }
@@ -16,6 +19,7 @@ const ShopGridwall: React.FC = () => {
     useEffect(() => {
         try {
             const data = fetchProducts()
+            console.log('data', data)
 
         } catch (error) {
             console.log('error', error)
