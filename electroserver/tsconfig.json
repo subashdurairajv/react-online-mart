@@ -1,0 +1,25 @@
+{
+  "compilerOptions": {
+    "target": "ES2021",
+    "module": "commonjs",
+    "lib": ["es6"],
+    "outDir": "./dist",
+    "rootDir": "./src",
+    "strict": true,
+    "esModuleInterop": true,
+    "skipLibCheck": true,
+    "forceConsistentCasingInFileNames": true,
+    
+    /* TypeORM & Decorator Settings */
+    "experimentalDecorators": true,
+    "emitDecoratorMetadata": true,
+    "strictPropertyInitialization": false, 
+    
+    /* Type Resolution */
+    "moduleResolution": "node",
+    "baseUrl": ".",
+    "types": ["node", "reflect-metadata"]
+  },
+  "include": ["src/**/*.ts"],
+  "exclude": ["node_modules"]
+}
