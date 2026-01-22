@@ -11,20 +11,21 @@ const LoginPage: React.FC = () => {
     e.preventDefault();
     console.log('Login Attempt:', { userName, password });
     try {
-        const response = await fetch('http://localhost:5000/api/login', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ username: userName, password })
-        });
-        
-        const data = await response.json();
-        if (data.success) {
-            navigate('/gridwall')
-        } else {
-            alert("Login Failed: " + data.message);
-        }
+      const response = await fetch('http://localhost:5000/api/login', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ username: userName, password })
+      });
+
+      const data = await response.json();
+      if (data.success) {
+        sessionStorage.setItem('token', data.token)
+        navigate('/gridwall')
+      } else {
+        alert("Login Failed: " + data.message);
+      }
     } catch (err) {
-        console.error("Connection error", err);
+      console.error("Connection error", err);
     }
   };
 
@@ -36,12 +37,12 @@ const LoginPage: React.FC = () => {
             <Card.Body className="p-4">
               <h2 className="text-center mb-4">Login</h2>
               <Form onSubmit={handleSubmit}>
-                
+
                 <Form.Group className="mb-3" controlId="formBasicEmail">
                   <Form.Label>User Name</Form.Label>
-                  <Form.Control 
-                    type="text" 
-                    placeholder="Enter username" 
+                  <Form.Control
+                    type="text"
+                    placeholder="Enter username"
                     value={userName}
                     onChange={(e) => setUserName(e.target.value)}
                     required
@@ -50,9 +51,9 @@ const LoginPage: React.FC = () => {
 
                 <Form.Group className="mb-3" controlId="formBasicPassword">
                   <Form.Label>Password</Form.Label>
-                  <Form.Control 
-                    type="password" 
-                    placeholder="Password" 
+                  <Form.Control
+                    type="password"
+                    placeholder="Password"
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
                     required
@@ -64,7 +65,7 @@ const LoginPage: React.FC = () => {
                     Sign In
                   </Button>
                 </div>
-                
+
                 <div className="mt-3 text-center">
                   <small>Don't have an account? <a href="#register">Register</a></small>
                 </div>
