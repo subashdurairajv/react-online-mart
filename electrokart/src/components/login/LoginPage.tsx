@@ -1,11 +1,15 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Container, Row, Col, Form, Button, Card } from 'react-bootstrap';
+import { userInfo } from '../store/userSlice';
+import { useDispatch } from 'react-redux';
+import { AppDispatch } from '../store';
 
 const LoginPage: React.FC = () => {
   const navigate = useNavigate()
   const [userName, setUserName] = useState<string>('');
   const [password, setPassword] = useState<string>('');
+  const dispatch = useDispatch<AppDispatch>();
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -19,6 +23,9 @@ const LoginPage: React.FC = () => {
 
       const data = await response.json();
       if (data.success) {
+        console.log('test12345', data)
+        dispatch(userInfo({user_id: data?.user.id, userName: data?.user.username}))
+        sessionStorage.setItem('user_id', data?.user?.id,)
         sessionStorage.setItem('token', data.token)
         navigate('/gridwall')
       } else {
@@ -31,6 +38,7 @@ const LoginPage: React.FC = () => {
 
   return (
     <Container className="mt-5">
+      <h1 className='mb-4'>Welcome to ElectroKart</h1>
       <Row className="justify-content-md-center">
         <Col xs={12} md={6} lg={4}>
           <Card className="shadow-sm">
