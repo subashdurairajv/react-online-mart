@@ -36,6 +36,43 @@ export class cartController {
         }
     }
 
+    static orderDetails = async (req: Request, res: Response) => {
+        const { user_id } = req.params
+        console.log('testuser', req)
+        try {
+            const cartRepository = AppDataSource.getRepository(CartOrder);
+            
+
+            const orderInfo = await cartRepository.find({
+            where: { 
+                user_id: Number(user_id) 
+            },
+            order: {
+                // Assuming you have a createdAt column, otherwise use cart_id
+                cart_id: "DESC" 
+            }
+        });
+
+            if (orderInfo) {
+            res.json({
+                success: true,
+                message: "Order Details Fetched successfully!",
+                data: orderInfo
+            });
+        } else {
+            res.status(401).json({ success: false, message: "No orders found" });
+        }
+
+        } catch (error: any) {
+            console.error("Database Error:", error);
+
+            return res.status(500).json({
+                success: false,
+                message: "An internal error occurred while fetching your order."
+            });
+        }
+    }
+
 
     static checkout = async (req: Request, res: Response) => {
         const { cart_id, user_id, products, total_cost } = req.body;

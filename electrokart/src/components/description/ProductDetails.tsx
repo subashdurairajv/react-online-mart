@@ -68,12 +68,6 @@ const ProductDetails: React.FC = () => {
 
     return (
         <div className='d-flex flex-column min-vh-100'>
-            <nav className="navbar sticky-top" style={{ backgroundColor: "dodgerblue" }} data-bs-theme="dark">
-                <div className="container-fluid">
-                    <a className="navbar-brand text-">ElectroKart</a>
-
-                </div>
-            </nav>
             {productDetail && <Container className="mt-5">
                 <h1 className='mb-4'>Product Description</h1>
                 <div style={{ display: 'flex', flexDirection: 'row', flex: 1}}>
@@ -112,7 +106,7 @@ const ProductDetails: React.FC = () => {
             <div className="mt-auto p-3 text-white text-center sticky-bottom" style={{ backgroundColor: "dodgerblue" }}>
                 <button 
                     className="btn btn-light" 
-                    onClick={() => navigate('/cart')}
+                    onClick={() => navigate('/cart', { replace: true })}
                 >
                     View Cart <span className="badge bg-secondary ms-2">{totalItems}</span>
                 </button>
