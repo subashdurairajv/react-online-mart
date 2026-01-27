@@ -1,5 +1,11 @@
 import { Entity, PrimaryGeneratedColumn, Column } from "typeorm";
 
+
+interface Location {
+    lat: number,
+    lng: number
+}
+
 @Entity("products")
 export class Products {
     @PrimaryGeneratedColumn()
@@ -22,4 +28,7 @@ export class Products {
 
     @Column()
     product_quantity!: string;
+
+    @Column("simple-json")
+        location!: Location[];
 }

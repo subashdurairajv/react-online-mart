@@ -4,6 +4,13 @@ import { useNavigate } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import { RootState, AppDispatch } from '../store';
 import { addToCart, removeFromCart } from '../store/cartSlice';
+import ProductMap from '../../mapLeaflet/ProductsMap';
+import 'leaflet/dist/leaflet.css';
+
+export interface LatLang {
+    lat:number
+    lng:number;
+}
 
 export interface Products {
     id: number;
@@ -13,6 +20,15 @@ export interface Products {
     product_description: string;
     price: number;
     product_quantity: string;
+    location: LatLang[]
+}
+
+interface Product {
+  id: number;
+  name: string;
+  price: number;
+  lat: number;
+  lng: number;
 }
 
 const ShopGridwall: React.FC = () => {
@@ -21,8 +37,9 @@ const ShopGridwall: React.FC = () => {
 
     const cartItems = useSelector((state: RootState) => state.cart.items);
     
-    const [products, SetProducts] = useState<Products[] | string>('');
+    const [products, SetProducts] = useState<Products[] | null>(null);
 
+    console.log('testSuccess123', products)
     const fetchProducts = async () => {
         try {
             const response = await fetch('http://localhost:5000/api/fetchProducts', {
@@ -42,9 +59,10 @@ const ShopGridwall: React.FC = () => {
         const loadData = async () => {
             const data = await fetchProducts();
             if (data?.success === true) {
+                console.log('testSuccess', data)
                 SetProducts(data?.data);
             } else {
-                SetProducts('Fetch Failed! Please try again.');
+                console.log('Fech Failed!')
             }
         };
         loadData();
@@ -59,11 +77,27 @@ const ShopGridwall: React.FC = () => {
     };
 
     const totalItems = cartItems.reduce((sum, item) => sum + item.count, 0);
-    console.log(cartItems, 'cartItems')
+
+    const product : Product[]  = products?.map((item) => {
+        const loc = item.location && item.location.length > 0 
+                ? item.location[0] 
+                : { lat: 12.8352, lng: 80.2011 };
+        return {
+            id: item?.id,
+            name: item?.product_name,
+            price: item?.price,
+            lat: loc?.lat || 12.5,
+            lng: loc?.lng || 80.12
+        }
+    }) || []
+
+    console.log(cartItems, products,'cartItems')
     return (
         <>
 
             <Container className="mt-5">
+                <ProductMap products={products} />
+
                 <Row>
                     {typeof products === 'object' && products?.map((item) => {
                         const currentCount = getProductCount(item.id);
