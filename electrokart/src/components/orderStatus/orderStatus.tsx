@@ -19,7 +19,6 @@ const OrderStatus: React.FC = () => {
                 <Col md={6} lg={5}>
                     <Card className="shadow border-0 text-center p-4 mt-5">
                         <Card.Body>
-                            {/* Large Green Checkmark using Bootstrap Text Colors */}
                             <div className="mb-4">
                                 <h1 className="display-1 text-success mt-2">
                                     {success === true ? <i className="bi bi-check-circle"></i> : <i className="bi bi-x-circle-fill"></i>}                        </h1>
@@ -31,7 +30,6 @@ const OrderStatus: React.FC = () => {
                                 {success === true ? "Your order has been confirmed. We've sent a receipt to your registered email address." : "Please try again after 5 minutes!"}
                             </p>
 
-                            {/* Order Info Section */}
                             {success === true && <div className="bg-light border rounded p-3 mb-4">
                                 <p className="small text-uppercase text-secondary mb-1">Order Reference</p>
                                 <h5 className="mb-0 text-primary font-monospace">{orderId}</h5>
@@ -51,10 +49,7 @@ const OrderStatus: React.FC = () => {
                         </Card.Body>
                     </Card>
 
-                    {/* Support Info */}
-                    <p className="text-center text-muted mt-4 small">
-                        Having issues? <a href="#" className="text-decoration-none">Contact Support</a>
-                    </p>
+                    
                 </Col>
             </Row>
         </Container>

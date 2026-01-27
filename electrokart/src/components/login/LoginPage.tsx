@@ -79,9 +79,6 @@ const LoginPage: React.FC = () => {
                   </Button>
                 </div>
 
-                <div className="mt-3 text-center">
-                  <small>Don't have an account? <a href="#register">Register</a></small>
-                </div>
               </Form>
             </Card.Body>
           </Card>

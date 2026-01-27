@@ -8,7 +8,7 @@ export const useIdleTimeout = (minutes: number) => {
     let timer: any;
 
     const logout = () => {
-      sessionStorage.clear(); // Wipe the token
+      sessionStorage.clear(); 
       alert("Session expired due to inactivity.");
       navigate('/login', { replace: true });
     };
@@ -18,7 +18,6 @@ export const useIdleTimeout = (minutes: number) => {
       timer = setTimeout(logout, minutes * 60 * 1000);
     };
 
-    // Events that prove the user is still active
     const activityEvents = ['mousedown', 'mousemove', 'keypress', 'scroll', 'touchstart'];
 
     activityEvents.forEach(event => 

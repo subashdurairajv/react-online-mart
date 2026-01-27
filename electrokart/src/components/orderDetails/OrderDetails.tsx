@@ -78,9 +78,7 @@ const OrderDetails: React.FC = () => {
                         const totalPrice = item?.products?.reduce((sum, product) => sum + product?.count * product?.price, 0);
                         const dateObj = new Date(item?.created_at);
 
-                        // Extract Date
-                        const date = dateObj.toLocaleDateString(); // e.g., "1/26/2026"
-                        // Extract Time
+                        const date = dateObj.toLocaleDateString(); 
                         const time = dateObj.toLocaleTimeString();
                         return (
                             <>

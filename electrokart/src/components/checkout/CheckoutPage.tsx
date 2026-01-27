@@ -30,7 +30,6 @@ interface CartItem extends Products {
 const Checkout: React.FC = () => {
     const navigate = useNavigate()
     const dispatch = useDispatch<AppDispatch>();
-    const [products, SetProducts] = useState<Products[] | string>('');
     const cartItems = useSelector((state: RootState) => state.cart.items);
 
     const totalItems = cartItems.reduce((sum, item) => sum + item.count, 0);
@@ -116,10 +115,8 @@ const Checkout: React.FC = () => {
                                                             type="button"
                                                             className="btn btn-secondary btn-sm"
                                                             onClick={() => dispatch(removeFromCart(item?.id))}
-                                                            // disabled={currentCount === 0}
                                                         >Remove item from cart</button>
 
-                                                        {/* <span className="fw-bold px-2">{currentCount}</span> */}
 
                                                     </div>
                                                 </div>
