@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Container, Row, Col, Form, Button, Card } from 'react-bootstrap';
 import { userInfo } from '../store/userSlice';
@@ -10,6 +10,11 @@ const LoginPage: React.FC = () => {
   const [userName, setUserName] = useState<string>('');
   const [password, setPassword] = useState<string>('');
   const dispatch = useDispatch<AppDispatch>();
+
+
+  useEffect(() => {
+    sessionStorage.clear()
+  }, [])
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();

@@ -9,6 +9,7 @@ import userRoutes from "./routes/userRoutes";
 import productsRouter from "./routes/productsRoutes";
 import * as dotenv from "dotenv";
 import cartRoutes from './routes/cartRoutes';
+import orderRoutes from './routes/orderRoutes';
 dotenv.config();
 
 const app = express();
@@ -22,6 +23,7 @@ app.use(cors({
 app.use("/api/", userRoutes);
 app.use("/api/", productsRouter);
 app.use("/api/", cartRoutes);
+app.use("/api/", orderRoutes);
 // Allows your React app to talk to this server
 
 // const JWT_SECRET : string = String(process.env.JWT_SECRET)

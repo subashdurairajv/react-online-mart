@@ -66,15 +66,6 @@ const ShopGridwall: React.FC = () => {
     console.log(cartItems, 'cartItems')
     return (
         <>
-            <nav className="navbar sticky-top" style={{ backgroundColor: "dodgerblue" }} data-bs-theme="dark">
-                <div className="container-fluid">
-                    <a className="navbar-brand">ElectroKart</a>
-                    <form className="d-flex" role="search">
-                        <input className="form-control me-2" type="search" placeholder="Search" />
-                        <button className="btn btn-outline-success" type="submit">Search</button>
-                    </form>
-                </div>
-            </nav>
 
             <Container className="mt-5">
                 <Row>
