@@ -1,0 +1,10 @@
+.mapContainer {
+  display: block; /* Default to block for small screens */
+}
+
+/* Media query for larger screens (e.g., tablets and desktops) */
+@media (min-width: 768px) {
+  .mapContainer {
+    display: flex; /* Override to flex for screens 768px wide or more */
+  }
+}
