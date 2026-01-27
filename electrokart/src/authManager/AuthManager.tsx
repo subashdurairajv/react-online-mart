@@ -18,7 +18,7 @@ const AuthManager: React.FC = () => {
     }
   }, [location.pathname, navigate]);
 
-  return null; // This component doesn't render UI, just logic
+  return null; 
 };
 
 export default AuthManager

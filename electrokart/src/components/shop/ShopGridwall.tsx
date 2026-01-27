@@ -19,12 +19,10 @@ const ShopGridwall: React.FC = () => {
     const navigate = useNavigate();
     const dispatch = useDispatch<AppDispatch>();
 
-    // 2. Select the cart from Redux store
     const cartItems = useSelector((state: RootState) => state.cart.items);
     
     const [products, SetProducts] = useState<Products[] | string>('');
 
-    // Fetch Logic (remains same)
     const fetchProducts = async () => {
         try {
             const response = await fetch('http://localhost:5000/api/fetchProducts', {
@@ -56,12 +54,10 @@ const ShopGridwall: React.FC = () => {
         navigate(`/product/${item?.id}`);
     };
 
-    // 3. Helper to find count from Redux state
     const getProductCount = (id: number) => {
         return cartItems.find(item => item.id === id)?.count || 0;
     };
 
-    // 4. Redux-based Calculations
     const totalItems = cartItems.reduce((sum, item) => sum + item.count, 0);
     console.log(cartItems, 'cartItems')
     return (

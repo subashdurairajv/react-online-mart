@@ -16,10 +16,9 @@ export const authenticateToken = (req: Request, res: Response, next: NextFunctio
         // Verify the token
         const decoded = jwt.verify(token, JWT_SECRET);
         
-        // Attach the user data (from the JWT payload) to the request object
         (req as any).user = decoded; 
         
-        next(); // Move to the next function (the actual route)
+        next(); 
     } catch (error) {
         return res.status(403).json({ message: "Forbidden: Invalid or expired token" });
     }

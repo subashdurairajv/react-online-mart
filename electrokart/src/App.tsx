@@ -18,18 +18,6 @@ const App: React.FC = () => {
   const hideNavbarPaths = ['/login', '/signup'];
   const shouldShowNavbar = !hideNavbarPaths.includes(location.pathname);
 
-  // useEffect(() => {
-  //   const handleTabClose = () => {
-  //     // Clear everything so they must log in next time
-  //     sessionStorage.clear();
-  //   };
-
-  //   window.addEventListener('beforeunload', handleTabClose);
-
-  //   return () => {
-  //     window.removeEventListener('beforeunload', handleTabClose);
-  //   };
-  // }, []);
 
 
 
@@ -39,10 +27,8 @@ const App: React.FC = () => {
       {shouldShowNavbar && <MyNavbar />}
         <AuthManager />
         <Routes>
-          {/* Redirect empty path to login */}
           <Route path="/" element={<Navigate to="/login" replace />} />
           
-          {/* Login Route */}
           <Route path="/login" element={<LoginPage />} />
 
           <Route path="/gridwall" element={<ShopGridwall />} />
