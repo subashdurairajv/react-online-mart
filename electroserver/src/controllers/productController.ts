@@ -30,7 +30,6 @@ export class productController {
 
         try {
             for (const item of products) {
-                // Update each product's quantity atomically
                 await queryRunner.manager
                     .createQueryBuilder()
                     .update(Products)
@@ -41,19 +40,16 @@ export class productController {
                     .execute();
             }
 
-            // Commit all changes at once
             await queryRunner.commitTransaction();
 
             return res.status(200).json({ success: true, message: "Inventory updated successfully" });
 
         } catch (error) {
-            // If anything fails, undo all updates
             await queryRunner.rollbackTransaction();
             console.error("Bulk Update Error:", error);
             return res.status(500).json({ success: false, message: "Failed to update inventory" });
 
         } finally {
-            // Release the database connection
             await queryRunner.release();
         }
     }

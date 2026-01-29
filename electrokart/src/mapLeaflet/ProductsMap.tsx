@@ -11,24 +11,16 @@ import { useNavigate } from 'react-router-dom';
 import { ProductDetail } from '../components/description/ProductDetails';
 import { Products } from '../components/shop/ShopGridwall';
 
-// Fix for default marker icons in React
+
 const DefaultIcon = L.icon({
     iconUrl: markerIcon,
-    iconSize: [25, 41],
+    iconSize: [20, 35],
     iconAnchor: [12, 41],
 });
 
 interface ProductMapProps {
     products: Products[] | null;
 }
-
-// interface Product {
-//     id: number;
-//     name: string;
-//     price: number;
-//     lat: number;
-//     lng: number;
-// }
 
 
 const ProductMap: React.FC<ProductMapProps> = ({ products }) => {
@@ -45,7 +37,6 @@ const ProductMap: React.FC<ProductMapProps> = ({ products }) => {
 
     console.log('testCart', products)
 
-    // 1. Logic to handle map clicks
     const MapEvents = () => {
         useMapEvents({
             click(e) {
@@ -56,7 +47,6 @@ const ProductMap: React.FC<ProductMapProps> = ({ products }) => {
         return null;
     };
 
-    // 2. Filter products within 3km of the clicked point
     const nearbyProducts = useMemo(() => {
         if (!selectedLocation) return [];
 
@@ -91,19 +81,16 @@ const ProductMap: React.FC<ProductMapProps> = ({ products }) => {
 
                     {selectedLocation && (
                         <>
-                            {/* The 3km Area */}
                             <Circle
                                 center={selectedLocation}
                                 radius={3000}
                                 pathOptions={{ color: 'blue', fillColor: 'blue', fillOpacity: 0.1 }}
                             />
 
-                            {/* The User's Selection Marker */}
                             <Marker position={selectedLocation} icon={DefaultIcon}>
                                 <Popup>Your Location</Popup>
                             </Marker>
 
-                            {/* Filtered Products */}
                             {nearbyProducts.map(product => {
                                 const { lat = 12.12, lng = 80.12 } = product?.location && product?.location.length && product?.location?.[0] || {}
                                 return (
@@ -115,7 +102,7 @@ const ProductMap: React.FC<ProductMapProps> = ({ products }) => {
                                         eventHandlers={{
                                             click: () => {
                                                 // console.log("Marker clicked:", product.product_name);
-                                                setProductDetail(product); // Update state on click
+                                                setProductDetail(product);
                                             },
                                         }}
                                     >
@@ -124,22 +111,20 @@ const ProductMap: React.FC<ProductMapProps> = ({ products }) => {
                                                 <h6>{product.product_name}</h6>
                                                 <p className="mb-1 text-success fw-bold">${product.price}</p>
                                                 <div className="d-flex justify-content-center align-items-center gap-2 mt-3">
-                            <button
-                                type="button"
-                                className="btn btn-secondary btn-sm"
-                                onClick={() => dispatch(removeFromCart(product.id))}
-                            // disabled={currentCount === 0}
-                            > - </button>
+                                                    <button
+                                                        type="button"
+                                                        className="btn btn-secondary btn-sm"
+                                                        onClick={() => dispatch(removeFromCart(product.id))}
+                                                    > - </button>
 
-                            <span className="fw-bold px-2">{currentCount}</span>
+                                                    <span className="fw-bold px-2">{currentCount}</span>
 
-                            <button
-                                type="button"
-                                className="btn btn-primary btn-sm"
-                                onClick={() => dispatch(addToCart({ ...product, product_quantity: parseInt(product.product_quantity) }))}
-                            // disabled={currentCount >= parseInt(productDetail.product_quantity)}
-                            > + </button>
-                        </div>
+                                                    <button
+                                                        type="button"
+                                                        className="btn btn-primary btn-sm"
+                                                        onClick={() => dispatch(addToCart({ ...product, product_quantity: parseInt(product.product_quantity) }))}
+                                                    > + </button>
+                                                </div>
                                             </div>
                                         </Popup>
                                     </Marker>
@@ -156,7 +141,6 @@ const ProductMap: React.FC<ProductMapProps> = ({ products }) => {
                         <div >
                             <img src={productDetail.image_url} className="" style={{ width: "40%", height: '50%' }} alt="Image" />
                         </div>
-                        {/* <p className="card-text mt-2">{productDetail?.product_description}</p> */}
 
                         <p className="card-text">{`Price: `}<span className='fw-bold'>{`$${productDetail?.price}`}</span></p>
                         <p className="card-text text-success">{`In Stock: ${productDetail?.product_quantity}`}</p>
@@ -165,7 +149,6 @@ const ProductMap: React.FC<ProductMapProps> = ({ products }) => {
                                 type="button"
                                 className="btn btn-secondary btn-sm"
                                 onClick={() => dispatch(removeFromCart(productDetail.id))}
-                            // disabled={currentCount === 0}
                             > - </button>
 
                             <span className="fw-bold px-2">{currentCount}</span>

@@ -18,7 +18,7 @@ export class userController {
             const token = jwt.sign(
                 { userId: user.id, username: user.username },
                 JWT_SECRET,
-                { expiresIn: '1h' } // Token expires in 1 hour
+                { expiresIn: '1h' } 
             );
             // res.json({ success: true, message: "Logged in!" });
             res.json({
