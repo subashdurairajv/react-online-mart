@@ -5,8 +5,8 @@ export interface CartItem {
     product_name: string;
     price: number;
     image_url: string;
-    product_quantity: number; // Stock limit
-    count: number; // Selected quantity
+    product_quantity: number; 
+    count: number; 
 }
 
 export interface CartState {

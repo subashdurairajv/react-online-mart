@@ -9,5 +9,5 @@ export class User {
     username!: string;
 
     @Column()
-    password!: string; // In a real app, hash this!
+    password!: string; 
 }

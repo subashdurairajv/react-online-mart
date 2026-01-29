@@ -38,7 +38,7 @@ const Checkout: React.FC = () => {
     const userInfo = useSelector((state: RootState) => state.userInfo.user_id);
     const user_id = userInfo === 0 ? sessionStorage.getItem('user_id') : userInfo
 
-    console.log('userInfo', userInfo)
+    // console.log('userInfo', userInfo)
     const generateCartId = () => {
         return 'cart_id-' + Math.random().toString(36).substr(2, 9).toUpperCase();
     };

@@ -24,7 +24,6 @@ app.use("/api/", userRoutes);
 app.use("/api/", productsRouter);
 app.use("/api/", cartRoutes);
 app.use("/api/", orderRoutes);
-// Allows your React app to talk to this server
 
 // const JWT_SECRET : string = String(process.env.JWT_SECRET)
 

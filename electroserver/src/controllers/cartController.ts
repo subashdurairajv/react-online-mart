@@ -83,18 +83,15 @@ export class cartController {
         await queryRunner.startTransaction();
 
         try {
-            // STEP 1: Save the Order record
             const newOrder = queryRunner.manager.create(CartOrder, {
                 cart_id,
                 user_id,
-                products, // The array of items
+                products, 
                 total_cost
             });
             await queryRunner.manager.save(newOrder);
 
-            // STEP 2: Loop through products and update stock
             for (const item of products) {
-                // Atomic decrement to prevent race conditions
                 await queryRunner.manager
                     .createQueryBuilder()
                     .update(Products)
@@ -105,19 +102,16 @@ export class cartController {
                     .execute();
             }
 
-            // If we reach here, both steps worked. Commit to DB!
             await queryRunner.commitTransaction();
 
             res.status(200).json({ success: true, message: "Order placed successfully!" });
 
         } catch (error) {
-            // If ANY step fails, UNDO everything done inside this transaction
             await queryRunner.rollbackTransaction();
             console.error("Transaction Error:", error);
             res.status(500).json({ success: false, message: "Checkout failed. Please try again." });
 
         } finally {
-            // Always release the connection
             await queryRunner.release();
         }
     }

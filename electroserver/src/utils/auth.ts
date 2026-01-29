@@ -13,7 +13,6 @@ export const authenticateToken = (req: Request, res: Response, next: NextFunctio
     }
 
     try {
-        // Verify the token
         const decoded = jwt.verify(token, JWT_SECRET);
         
         (req as any).user = decoded; 
